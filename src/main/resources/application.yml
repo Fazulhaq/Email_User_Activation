@@ -1,3 +1,5 @@
+server:
+  port: 8080
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/registration
@@ -5,19 +7,15 @@ spring:
     password: 123
     driver-class-name: org.postgresql.Driver
   jpa:
+    defer-datasource-initialization: true
     hibernate:
       ddl-auto: create
-      show_sql: true
-      properties:
-        hibernate:
-          format_sql: true
-        database: postgresql
-        database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
   mail:
     host: smtp.gmail.com
     port: 587
-    username: formmcit2023@gmail.com
-    password: Form@12345
+    username: dailycodework@gmail.com
+    password:
     properties:
       mail:
         smtp:

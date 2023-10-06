@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.Email_User_Activation.exception.UserAllreadyExistsException;
 import com.example.Email_User_Activation.registration.RegistrationRequest;
+import com.example.Email_User_Activation.registration.token.VerificationToken;
+import com.example.Email_User_Activation.registration.token.VerificationTokenRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class UserService implements IUserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final VerificationTokenRepository tokenRepository;
 
     @Override
     public List<User> getUsers() {
@@ -40,6 +43,13 @@ public class UserService implements IUserService {
     @Override
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public void saveUserVerificationToken(User theUser, String token) {
+
+        var verficationToken = new VerificationToken(token, theUser);
+        tokenRepository.save(verficationToken);
+
     }
     
 }
