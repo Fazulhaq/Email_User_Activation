@@ -37,9 +37,13 @@ public class RegistrationController {
     public String verifyEmail(@RequestParam("token") String token){
         VerificationToken thToken = tokenRepository.findByToken(token);
         if(thToken.getUser().isEnabled()){
-            return "This account has already been verified, please, login.";
+            return "This account has already been verified. Please, login to your account.";
         }
-        return "";
+        String verificationResult = userService.validateToken(token);
+        if(verificationResult.equalsIgnoreCase("valid")){
+            return "Email verified successfully. Now you can login on your account.";
+        }
+        return "Invalid verification token";
     }
     
     public String applicationUrl(HttpServletRequest request){

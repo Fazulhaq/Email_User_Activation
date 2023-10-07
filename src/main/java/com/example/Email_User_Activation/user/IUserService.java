@@ -9,4 +9,5 @@ public interface IUserService {
     List<User> getUsers();
     User registerUser(RegistrationRequest request);
     Optional<User> findByEmail(String email);
+    String validateToken(String token);
 }
