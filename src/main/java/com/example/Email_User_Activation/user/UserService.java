@@ -3,6 +3,7 @@ package com.example.Email_User_Activation.user;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -70,6 +71,17 @@ public class UserService implements IUserService {
         return "valid";
         
     }
+
+    @Override
+    public VerificationToken generateNewVerificationToken(String oldToken) {
+        VerificationToken verificationToken = tokenRepository.findByToken(oldToken);
+        var verificationTokenTime = new VerificationToken();
+        verificationToken.setToken(UUID.randomUUID().toString());
+        verificationToken.setExpirationTime(verificationTokenTime.getExpirationTime());
+        return tokenRepository.save(verificationToken);
+    }
+
+    
 
     
     
